@@ -58,7 +58,7 @@ Construído com a **OpenAI Realtime API** sobre **WebRTC** (baixa latência, det
 
 ```bash
 # 1. Instalar dependências
-npm install
+npm install ...
 
 # 2. Variáveis de ambiente
 cp .env.example .env
