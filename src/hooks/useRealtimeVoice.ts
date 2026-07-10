@@ -1,4 +1,4 @@
-// useRealtimeVoice
+// useRealtimeVoice -
 // Hook responsavel por toda a comunicacao de voz em tempo real com a
 // OpenAI Realtime API atraves de WebRTC:
 //   - obtem um token efemero do backend (/api/session)
