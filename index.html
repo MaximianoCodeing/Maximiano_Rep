@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apostilas de Idiomas — Início</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1C2230; --muted:#6B7280; --paper:#F4F5F8; --card:#FFFFFF; --line:#E3E6ED;
+    --en:#B22222; --fr:#0055A4; --ai:#6366F1;
+  }
+  [data-theme="dark"]{
+    --ink:#E7E9F0; --muted:#8A93AD; --paper:#14171F; --card:#1B2030; --line:#2A3142;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; min-height:100vh; font-family:'Inter',system-ui,sans-serif;
+    background:var(--paper); color:var(--ink);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:32px 20px; transition:background .3s, color .3s;
+  }
+  .theme-btn{
+    position:fixed; top:18px; right:18px; background:var(--card); border:1.5px solid var(--line);
+    color:var(--ink); border-radius:999px; width:44px; height:44px; font-size:20px; cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.12);
+  }
+  header{ text-align:center; margin-bottom:40px; }
+  .kicker{
+    font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:700; letter-spacing:2px;
+    text-transform:uppercase; color:var(--muted); margin-bottom:10px;
+  }
+  h1{ font-family:'Fraunces',serif; font-weight:900; font-size:clamp(30px,6vw,52px); margin:0 0 12px; line-height:1.05; }
+  header p{ color:var(--muted); font-size:16px; margin:0; max-width:520px; }
+  .cards{ display:flex; gap:24px; flex-wrap:wrap; justify-content:center; width:100%; max-width:1040px; }
+  .lang-card{
+    flex:1; min-width:260px; text-decoration:none; color:inherit;
+    background:var(--card); border:1.5px solid var(--line); border-radius:22px;
+    padding:34px 30px; box-shadow:0 10px 40px -18px rgba(0,0,0,.35);
+    transition:transform .18s, box-shadow .18s, border-color .18s; position:relative; overflow:hidden;
+  }
+  .lang-card:hover{ transform:translateY(-6px); box-shadow:0 22px 50px -20px rgba(0,0,0,.45); }
+  .lang-card .flag{ font-size:56px; line-height:1; margin-bottom:18px; display:block; }
+  .lang-card h2{ font-family:'Fraunces',serif; font-size:26px; margin:0 0 6px; }
+  .lang-card p{ color:var(--muted); font-size:14px; margin:0 0 20px; }
+  .go{
+    display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:14px;
+    font-family:'JetBrains Mono',monospace; padding:10px 18px; border-radius:999px; color:#fff;
+  }
+  .card-en{ border-top:5px solid var(--en); }
+  .card-en .go{ background:var(--en); }
+  .card-fr{ border-top:5px solid var(--fr); }
+  .card-fr .go{ background:var(--fr); }
+  .card-ai{ border-top:5px solid var(--ai); }
+  .card-ai .go{ background:var(--ai); }
+  footer{ margin-top:40px; color:var(--muted); font-size:12.5px; text-align:center; max-width:560px; line-height:1.6; }
+  .note{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 18px; margin-top:18px; font-size:13px; }
+</style>
+</head>
+<body>
+  <button class="theme-btn" id="theme-btn" aria-label="Alternar tema">🌙</button>
+
+  <header>
+    <div class="kicker">Estudo de Idiomas · A1 → B2</div>
+    <h1>Escolha o seu idioma</h1>
+    <p>Apostilas interativas completas com gramática, vocabulário, exercícios, diálogos, leituras e loja de histórias.</p>
+  </header>
+
+  <div class="cards">
+    <a class="lang-card card-en" href="curso-ingles.html">
+      <span class="flag">🇬🇧</span>
+      <h2>Inglês</h2>
+      <p>English — do básico ao intermediário-avançado.</p>
+      <span class="go">Abrir apostila →</span>
+    </a>
+    <a class="lang-card card-fr" href="curso-frances.html">
+      <span class="flag">🇫🇷</span>
+      <h2>Francês</h2>
+      <p>Français — do básico ao intermediário-avançado.</p>
+      <span class="go">Ouvrir le cours →</span>
+    </a>
+    <a class="lang-card card-ai" href="https://cozy-halva-db0290.netlify.app/" target="_blank" rel="noopener">
+      <span class="flag">🎙️</span>
+      <h2>Fluio</h2>
+      <p>Pratique inglês falando com uma IA em tempo real, como numa chamada.</p>
+      <span class="go">Falar agora →</span>
+    </a>
+  </div>
+
+  <footer>
+    <div class="note">
+      📁 <b>Importante:</b> mantenha os três ficheiros — <b>index.html</b>, <b>curso-ingles.html</b> e <b>curso-frances.html</b> — na <b>mesma pasta</b>, sem alterar os nomes, para que os links funcionem. O cartão <b>Fluio</b> abre noutra aba, num site à parte.
+    </div>
+  </footer>
+
+  <script>
+    function applyTheme(t){
+      document.documentElement.dataset.theme = t;
+      document.getElementById('theme-btn').textContent = t === 'dark' ? '☀️' : '🌙';
+      try{ localStorage.setItem('apostila_theme', t); }catch(e){}
+    }
+    (function(){
+      let saved=null; try{ saved=localStorage.getItem('apostila_theme'); }catch(e){}
+      applyTheme(saved === 'dark' ? 'dark' : 'light');
+      document.getElementById('theme-btn').addEventListener('click', ()=>{
+        applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+      });
+    })();
+  </script>
+</body>
+</html>
