@@ -86,6 +86,17 @@ function SessionInner() {
   if (phase === "setup") {
     return (
       <main className="flex min-h-screen flex-col items-center justify-center gap-8 p-6">
+        <div className="absolute left-5 top-5">
+          <button
+            onClick={() => router.push("/")}
+            className="flex items-center gap-1.5 rounded-full border border-black/10 bg-black/5 px-3 py-1.5 text-sm text-black/70 transition hover:bg-black/10 dark:border-white/10 dark:bg-white/5 dark:text-white/70 dark:hover:bg-white/10"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12" /><polyline points="12 19 5 12 12 5" />
+            </svg>
+            Voltar
+          </button>
+        </div>
         <div className="absolute right-5 top-5"><ThemeToggle /></div>
         <div className="text-center">
           <h2 className="text-2xl font-semibold">Choose a conversation mode</h2>
@@ -117,10 +128,25 @@ function SessionInner() {
     );
   }
 
+  // Volta ao ecra inicial do Fluio, terminando a chamada se estiver ativa.
+  const goBack = useCallback(() => {
+    if (state !== "idle") stop();
+    router.push("/");
+  }, [state, stop, router]);
+
   // ---- Conversa ativa ----
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-6">
       <div className="flex w-full max-w-2xl items-center justify-between">
+        <button
+          onClick={goBack}
+          className="flex items-center gap-1.5 rounded-full border border-black/10 bg-black/5 px-3 py-1.5 text-sm text-black/70 transition hover:bg-black/10 dark:border-white/10 dark:bg-white/5 dark:text-white/70 dark:hover:bg-white/10"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12" /><polyline points="12 19 5 12 12 5" />
+          </svg>
+          Voltar
+        </button>
         <div className="flex items-center gap-2">
           <span className={`h-2.5 w-2.5 rounded-full ${state !== "idle" ? "animate-pulse bg-red-500" : "bg-black/30 dark:bg-white/30"}`} />
           <span className="text-sm text-black/60 dark:text-white/60">Mic active</span>
