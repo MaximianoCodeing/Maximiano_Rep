@@ -1,0 +1,63 @@
+// Prisma schema — modelos de dados para a plataforma de pratica de ingles por voz.
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Utilizador. O campo authId liga ao provedor de autenticacao (Clerk/NextAuth).
+// Guarda tambem o "perfil de memoria" que a IA usa para adaptar as conversas.
+model User {
+  id        String   @id @default(cuid())
+  authId    String?  @unique
+  email     String?  @unique
+  name      String?
+  level     String   @default("B1") // A1..C2
+  goals     String?  // objetivos do utilizador (texto livre)
+
+  // Memoria acumulada — usada para personalizar futuras sessoes.
+  frequentErrors    Json?  // [{ pattern, example }]
+  learnedWords      Json?  // [{ term, meaning }]
+  learnedExpressions Json? // [{ term, meaning }]
+  pronunciationNotes Json? // [string] dificuldades recorrentes
+  lastTopic         String?
+
+  // Estatisticas agregadas.
+  totalSeconds  Int      @default(0)
+  streakDays    Int      @default(0)
+  lastPractice  DateTime?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  sessions  Session[]
+}
+
+// Uma sessao de conversacao por voz.
+model Session {
+  id            String   @id @default(cuid())
+  userId        String?
+  user          User?    @relation(fields: [userId], references: [id])
+  topic         String   @default("free")
+  level         String   @default("B1")
+  durationSec   Int      @default(0)
+
+  // Metricas 0..100.
+  fluency       Int?
+  pronunciation Int?
+  grammar       Int?
+  vocabulary    Int?
+  confidence    Int?
+
+  errors        Json?    // [{ original, correction, explanation }]
+  suggestions   Json?    // string[]
+  newWords      Json?    // [{ term, meaning }]
+  newExpressions Json?   // [{ term, meaning }]
+  pronunciationTips Json? // string[]
+  nextGoal      String?  // objetivo recomendado para a proxima sessao
+  transcript    Json?    // [{ role, text }]
+
+  createdAt     DateTime @default(now())
+}

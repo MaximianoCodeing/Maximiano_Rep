@@ -1,0 +1,13 @@
+## Configuração do Netlify para este projeto Next.js (App Router + API routes)
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Garante que o Prisma Client é gerado antes do build também no Netlify
+# (o postinstall do package.json já trata disto, mas fica explícito aqui).
+[build.environment]
+  NPM_FLAGS = "--include=dev"
