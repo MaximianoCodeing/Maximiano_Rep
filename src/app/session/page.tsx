@@ -1,5 +1,5 @@
 // Pagina da sessao de voz ativa. Escolhe modo, liga o Realtime, mostra o orb,
-// cronometro e estado, e no fim gera + apresenta o relatorio..
+// cronometro e estado, e no fim gera + apresenta o relatorio.
 "use client";
 
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
@@ -33,6 +33,13 @@ function SessionInner() {
     start(topic, level, getClientUserId(), mode);
   };
 
+  // Volta ao ecra inicial do Fluio, terminando a chamada se estiver ativa.
+  const goBack = useCallback(() => {
+    if (state !== "idle") stop();
+    router.push("/");
+  }, [state, stop, router]);
+
+  // Terminar a sessao: parar audio, pedir relatorio ao backend.
   const end = useCallback(async () => {
     const turns = stop();
     setLoadingReport(true);
@@ -57,6 +64,7 @@ function SessionInner() {
     }
   }, [stop, seconds, topic, level]);
 
+  // ---- Relatorio ----
   if (report) {
     return (
       <main className="flex min-h-screen items-center justify-center p-6">
@@ -70,6 +78,7 @@ function SessionInner() {
     );
   }
 
+  // ---- A gerar relatorio ----
   if (loadingReport) {
     return (
       <main className="flex min-h-screen flex-col items-center justify-center gap-4 p-6">
@@ -79,6 +88,7 @@ function SessionInner() {
     );
   }
 
+  // ---- Escolha de modo (antes de comecar) ----
   if (phase === "setup") {
     return (
       <main className="flex min-h-screen flex-col items-center justify-center gap-8 p-6">
@@ -124,11 +134,7 @@ function SessionInner() {
     );
   }
 
-  const goBack = useCallback(() => {
-    if (state !== "idle") stop();
-    router.push("/");
-  }, [state, stop, router]);
-
+  // ---- Conversa ativa ----
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-6">
       <div className="flex w-full max-w-2xl items-center justify-between">
