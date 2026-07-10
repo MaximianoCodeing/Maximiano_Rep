@@ -1,5 +1,5 @@
 // Pagina da sessao de voz ativa. Escolhe modo, liga o Realtime, mostra o orb,
-// cronometro e estado, e no fim gera + apresenta o relatorio.
+// cronometro e estado, e no fim gera + apresenta o relatorio..
 "use client";
 
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
